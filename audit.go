@@ -611,7 +611,7 @@ const (
 	// this size do not report features after the FeatureBitmap field.
 	// Users should consult the feature bitmap to determine which
 	// features are valid.
-	MinSizeofAuditStatus = int(unsafe.Offsetof(AuditStatus{}.FeatureBitmap) + unsafe.Sizeof(AuditStatus{}.FeatureBitmap))
+	MinSizeofAuditStatus = int(unsafe.Offsetof(AuditStatus{}.FeatureBitmap))
 )
 
 func (s AuditStatus) toWireFormat() []byte {
