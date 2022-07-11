@@ -44,6 +44,7 @@ type NetlinkSender interface {
 // instead of blocking when no data is available, EWOULDBLOCK is returned.
 type NetlinkReceiver interface {
 	Receive(nonBlocking bool, p NetlinkParser) ([]syscall.NetlinkMessage, error)
+	GetFileDescriptor() int
 }
 
 // NetlinkSendReceiver combines the Send and Receive into one interface.
@@ -208,4 +209,9 @@ func ParseNetlinkError(netlinkData []byte) error {
 		return syscall.Errno(errno)
 	}
 	return errors.New("received netlink error (data too short to read errno)")
+}
+
+// GetFileDescriptor return int number of the file descriptor that was use for communication with netlink socket
+func GetFileDescriptor(c *NetlinkClient) int {
+	return c.fd
 }
